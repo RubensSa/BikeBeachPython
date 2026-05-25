@@ -1,21 +1,20 @@
 <#
-deploy_windows.ps1
-Deploy script nativo para Windows PowerShell (sem WSL).
+run_local.ps1
+Script simples para execução local no Windows (apresentação acadêmica).
 
 Funcionalidades:
 - cria/atualiza ambiente virtual (`.venv` por padrão)
 - instala `requirements.txt`
 - executa `migrate` e `collectstatic`
-- inicia o servidor Django em segundo plano (opcional)
+- inicia o servidor Django localmente (em foreground)
 
 Uso:
-  .\deploy\deploy_windows.ps1 [-VenvPath .venv] [-Bind 0.0.0.0] [-Port 8000] [-NoStart]
-
+  .\run_local.ps1 [-VenvPath .venv] [-Bind 127.0.0.1] [-Port 8000] [-NoStart]
 #>
 
 param(
     [string]$VenvPath = ".venv",
-    [string]$Bind = "0.0.0.0",
+    [string]$Bind = "127.0.0.1",
     [int]$Port = 8000,
     [switch]$NoStart
 )
@@ -24,16 +23,10 @@ Set-StrictMode -Version Latest
 
 function Fail([string]$msg){ Write-Error $msg; exit 1 }
 
-Write-Host "Deploy Windows iniciado..." -ForegroundColor Cyan
+Write-Host "Preparando ambiente local..." -ForegroundColor Cyan
 
-# localizar executável Python
-$pythonCmd = $null
-try {
-    $pythonCmd = (Get-Command python -ErrorAction SilentlyContinue).Source
-} catch {}
-if (-not $pythonCmd) {
-    try { $pythonCmd = (Get-Command py -ErrorAction SilentlyContinue).Source } catch {}
-}
+# localizar executável Python (prefira py)
+$pythonCmd = (Get-Command py -ErrorAction SilentlyContinue)?.Source -or (Get-Command python -ErrorAction SilentlyContinue)?.Source
 if (-not $pythonCmd) { Fail "Python não encontrado no PATH. Instale Python 3 e tente novamente." }
 
 Write-Host "Usando Python: $pythonCmd"
@@ -41,10 +34,10 @@ Write-Host "Usando Python: $pythonCmd"
 # criar virtualenv se necessário
 if (-not (Test-Path $VenvPath)){
     Write-Host "Criando virtualenv em '$VenvPath'..."
-    & $pythonCmd -m venv $VenvPath
+    & $pythonCmd -3 -m venv $VenvPath
     if ($LASTEXITCODE -ne 0) { Fail "Falha ao criar virtualenv." }
 } else {
-    Write-Host "Virtualenv encontrado em '$VenvPath', atualizando pip..."
+    Write-Host "Virtualenv encontrado em '$VenvPath'"
 }
 
 $venvPython = Join-Path $VenvPath "Scripts\python.exe"
@@ -72,4 +65,3 @@ if ($NoStart) { Write-Host "Preparação concluída (servidor não iniciado porq
 
 Write-Host "Iniciando servidor de desenvolvimento Django em http://$Bind`:$Port/ (ctrl+C para parar)" -ForegroundColor Green
 & $venvPython manage.py runserver "$Bind`:$Port"
-}

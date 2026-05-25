@@ -29,6 +29,9 @@ python manage.py collectstatic --noinput  # opcional, se usar arquivos estático
 python manage.py runserver
 ```
 
+Parar o servidor
+- Para interromper o servidor de desenvolvimento no Windows, volte ao terminal onde o servidor está rodando e pressione CTRL + C.
+
 Banco de dados
 - SQLite (arquivo `db.sqlite3`)
 
