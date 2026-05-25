@@ -4,9 +4,10 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-bikebeach-replace-this'
+SECRET_KEY = 'jkgrg-^df0t2%&(nu9c@w3h^78&zm5n3c1h&$or))_eb_m$8t&'
 DEBUG = True
-ALLOWED_HOSTS = []
+# Permitir acesso de outras máquinas em desenvolvimento. Remova ou restrinja em produção.
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
