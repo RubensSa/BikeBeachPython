@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="bike-detail">
+  {% if bike.imagem %}
+    <img class="bike-image" src="{{ bike.imagem.url }}" alt="{{ bike.nome }}">
+  {% endif %}
   <h2>{{ bike.nome }}</h2>
   <p>Modelo: {{ bike.modelo }}</p>
   <p>Cor: {{ bike.cor }}</p>

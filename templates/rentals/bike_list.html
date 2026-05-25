@@ -9,6 +9,9 @@
 <div class="cards">
   {% for bike in bikes %}
     <div class="card">
+      {% if bike.imagem %}
+        <img src="{{ bike.imagem.url }}" alt="{{ bike.nome }}">
+      {% endif %}
       <h3>{{ bike.nome }}</h3>
       <p>{{ bike.modelo }} - {{ bike.cor }}</p>
       <p>R$ {{ bike.valor_hora }} / h</p>
