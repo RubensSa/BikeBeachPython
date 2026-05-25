@@ -70,11 +70,6 @@ Write-Host "Coletando arquivos estáticos..."
 
 if ($NoStart) { Write-Host "Preparação concluída (servidor não iniciado porque -NoStart foi especificado)."; exit 0 }
 
-Write-Host "Iniciando servidor de desenvolvimento Django em $Bind`:$Port (em segundo plano)..."
-$args = @("manage.py","runserver","$Bind`:$Port")
-try{
-    $proc = Start-Process -FilePath $venvPython -ArgumentList $args -WorkingDirectory (Get-Location) -PassThru -WindowStyle Hidden
-    Write-Host "Servidor iniciado — PID: $($proc.Id). Acesse http://$Bind`:$Port/"
-} catch {
-    Fail "Falha ao iniciar o servidor: $_"
+Write-Host "Iniciando servidor de desenvolvimento Django em http://$Bind`:$Port/ (ctrl+C para parar)" -ForegroundColor Green
+& $venvPython manage.py runserver "$Bind`:$Port"
 }
