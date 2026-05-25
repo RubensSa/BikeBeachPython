@@ -31,6 +31,3 @@ Estrutura
 
 Banco de dados
 - SQLite (arquivo `db.sqlite3`)
-
-Observações
-- Troque o `SECRET_KEY` em `bikebeach/settings.py` antes de publicar em produção.
