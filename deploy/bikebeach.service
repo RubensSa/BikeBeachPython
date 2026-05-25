@@ -18,15 +18,18 @@ EnvironmentFile=-/etc/default/bikebeach
 # Fallback defaults (override in /etc/default/bikebeach)
 Environment="WORKDIR=/srv/bikebeach"
 Environment="VENV_BIN=/srv/bikebeach/.venv/bin"
+
 Environment="USER=www-data"
 Environment="GROUP=www-data"
+Environment="GUNICORN_BIND=127.0.0.1:8000"
+Environment="GUNICORN_WORKERS=3"
 
-User=%p
-Group=%p
+User=${USER}
+Group=${GROUP}
 WorkingDirectory=${WORKDIR}
 
 # Use the virtualenv gunicorn binary
-ExecStart=${VENV_BIN}/gunicorn --access-logfile - --workers 3 --bind 127.0.0.1:8000 bikebeach.wsgi:application
+ExecStart=${VENV_BIN}/gunicorn --access-logfile - --workers ${GUNICORN_WORKERS} --bind ${GUNICORN_BIND} bikebeach.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
