@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Entrar</h2>
+<form method="post">{% csrf_token %}
+  <label>Usuário</label>
+  <input name="username" required>
+  <label>Senha</label>
+  <input name="password" type="password" required>
+  <button class="btn" type="submit">Entrar</button>
+  <p>Não tem conta? <a href="{% url 'accounts:register' %}">Cadastre-se</a></p>
+</form>
+{% endblock %}

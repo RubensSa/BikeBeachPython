@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Meus Aluguéis</h2>
+<ul>
+  {% for a in alugueis %}
+    <li>
+      {{ a.bicicleta.nome }} - Início: {{ a.data_inicio }} - {% if a.ativo %}Ativo{% else %}Finalizado{% endif %}
+      {% if a.ativo %}
+        <a href="{% url 'rentals:return_bike' a.pk %}">Devolver</a>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>Você não tem aluguéis.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

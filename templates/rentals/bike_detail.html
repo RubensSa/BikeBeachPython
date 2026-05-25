@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bike-detail">
+  <h2>{{ bike.nome }}</h2>
+  <p>Modelo: {{ bike.modelo }}</p>
+  <p>Cor: {{ bike.cor }}</p>
+  <p>Valor/h: R$ {{ bike.valor_hora }}</p>
+  <p>Dono: {{ bike.dono.username }}</p>
+  <p>Status: {% if bike.disponivel %}Disponível{% else %}Indisponível{% endif %}</p>
+  {% if user == bike.dono %}
+    <a href="{% url 'rentals:bike_edit' bike.pk %}">Editar</a>
+    <a href="{% url 'rentals:bike_delete' bike.pk %}">Excluir</a>
+  {% endif %}
+  {% if bike.disponivel and user.is_authenticated %}
+    <form method="post" action="{% url 'rentals:rent_bike' bike.pk %}">{% csrf_token %}
+      <button class="btn" type="submit">Alugar</button>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

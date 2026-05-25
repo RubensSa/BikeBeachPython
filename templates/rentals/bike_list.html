@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Bicicletas</h2>
+<form method="get" class="search">
+  <input name="q" placeholder="Buscar por nome ou modelo" value="{{ q }}">
+  <button type="submit">Buscar</button>
+</form>
+<a class="btn" href="{% url 'rentals:bike_create' %}">Criar bicicleta</a>
+<div class="cards">
+  {% for bike in bikes %}
+    <div class="card">
+      <h3>{{ bike.nome }}</h3>
+      <p>{{ bike.modelo }} - {{ bike.cor }}</p>
+      <p>R$ {{ bike.valor_hora }} / h</p>
+      <p>Status: {% if bike.disponivel %}Disponível{% else %}Indisponível{% endif %}</p>
+      <a href="{% url 'rentals:bike_detail' bike.pk %}">Detalhes</a>
+    </div>
+  {% empty %}
+    <p>Nenhuma bicicleta encontrada.</p>
+  {% endfor %}
+</div>
+{% endblock %}
