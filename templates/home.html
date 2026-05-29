@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="hero">
-  <h2>Alugue sua bicicleta e curta a praia</h2>
-  <p>Explore modelos, alugar e devolver com facilidade.</p>
-  <a class="btn" href="/bikes/">Ver bicicletas</a>
+<section class="hero" aria-label="Hero - Alugue sua bicicleta">
+  <div class="hero-inner container">
+    <div class="hero-card">
+      <h2>Alugue sua bicicleta e curta a praia</h2>
+      <p>Explore modelos, alugue e devolva com facilidade — aproveite o vento no rosto.</p>
+      <a class="btn premium-btn" href="/bikes/">Ver bicicletas</a>
+    </div>
+  </div>
 </section>
 {% endblock %}
