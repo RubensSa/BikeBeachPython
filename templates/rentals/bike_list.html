@@ -1,25 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Bicicletas</h2>
-<form method="get" class="search">
-  <input name="q" placeholder="Buscar por nome ou modelo" value="{{ q }}">
-  <button type="submit">Buscar</button>
-</form>
-<a class="btn" href="{% url 'rentals:bike_create' %}">Criar bicicleta</a>
-<div class="cards">
-  {% for bike in bikes %}
-    <div class="card">
-      {% if bike.imagem %}
-        <img src="{{ bike.imagem.url }}" alt="{{ bike.nome }}">
-      {% endif %}
-      <h3>{{ bike.nome }}</h3>
-      <p>{{ bike.modelo }} - {{ bike.cor }}</p>
-      <p>R$ {{ bike.valor_hora }} / h</p>
-      <p>Status: {% if bike.disponivel %}Disponível{% else %}Indisponível{% endif %}</p>
-      <a href="{% url 'rentals:bike_detail' bike.pk %}">Detalhes</a>
-    </div>
-  {% empty %}
-    <p>Nenhuma bicicleta encontrada.</p>
-  {% endfor %}
-</div>
+<section class="bikes-section">
+  <div class="bikes-header">
+    <h2 class="bikes-title">Bicicletas</h2>
+  </div>
+
+  <div class="bikes-toolbar">
+    <form method="get" class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input name="q" placeholder="Buscar por nome ou modelo" value="{{ q }}" class="search-input">
+      <button type="submit" class="search-btn">Buscar</button>
+    </form>
+    <a class="btn premium-btn-create" href="{% url 'rentals:bike_create' %}">+ Criar bicicleta</a>
+  </div>
+
+  <div class="bikes-grid">
+    {% for bike in bikes %}
+      <div class="bike-card">
+        <div class="bike-image-wrapper">
+          {% if bike.imagem %}
+            <img src="{{ bike.imagem.url }}" alt="{{ bike.nome }}" class="bike-image">
+          {% else %}
+            <div class="bike-image-placeholder">Sem imagem</div>
+          {% endif %}
+        </div>
+        <div class="bike-card-content">
+          <h3 class="bike-name">{{ bike.nome }}</h3>
+          <p class="bike-model">{{ bike.modelo }} • {{ bike.cor }}</p>
+          <p class="bike-price">R$ {{ bike.valor_hora }}<span class="price-unit">/h</span></p>
+          <div class="bike-status-wrapper">
+            <span class="bike-status {% if bike.disponivel %}status-available{% else %}status-unavailable{% endif %}">
+              {% if bike.disponivel %}Disponível{% else %}Indisponível{% endif %}
+            </span>
+          </div>
+          <a href="{% url 'rentals:bike_detail' bike.pk %}" class="bike-detail-link">Ver detalhes →</a>
+        </div>
+      </div>
+    {% empty %}
+      <div class="bikes-empty">
+        <p>Nenhuma bicicleta encontrada.</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}

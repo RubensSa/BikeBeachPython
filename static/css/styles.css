@@ -46,6 +46,52 @@ form input, form select, form textarea{width:100%;padding:.5rem;margin:.25rem 0;
 .site-footer{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(2,82,127,0.95),rgba(3,104,166,0.95));color:rgba(255,255,255,0.9);padding:.5rem 0;font-size:.9rem}
 .site-footer .container{max-width:1100px}
 
+/* Bikes Section - Modern List */
+.bikes-section{padding:1rem 0 6rem}
+.bikes-header{margin-bottom:1.5rem}
+.bikes-title{color:var(--blue-700);font-size:2rem;margin:0;font-weight:700;letter-spacing:-.5px}
+
+/* Search Bar Modern */
+.bikes-toolbar{display:flex;gap:1rem;align-items:center;margin-bottom:2rem;flex-wrap:wrap}
+.search-bar{display:flex;align-items:center;flex:1;min-width:250px;background:#f8fafc;border-radius:50px;padding:.35rem .25rem .35rem 1rem;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(2,82,127,0.06);transition:all .2s ease}
+.search-bar:focus-within{border-color:var(--blue-600);box-shadow:0 4px 16px rgba(3,104,166,0.12)}
+.search-icon{color:#94a3b8;font-size:1.1rem;margin-right:.5rem}
+.search-input{flex:1;border:none;background:transparent;padding:.6rem .5rem;font-size:.95rem;outline:none}
+.search-input::placeholder{color:#cbd5e1}
+.search-btn{background:var(--blue-700);color:var(--white);border:none;padding:.5rem 1.25rem;border-radius:50px;cursor:pointer;font-weight:600;transition:all .18s ease;margin-right:.25rem}
+.search-btn:hover{background:var(--blue-600);transform:translateY(-1px);box-shadow:0 4px 12px rgba(2,82,127,0.18)}
+
+/* Create Bike Button */
+.premium-btn-create{background:linear-gradient(180deg,var(--accent-1),var(--accent-2));color:var(--text-dark);padding:.65rem 1rem;border-radius:8px;font-weight:700;font-size:.95rem;box-shadow:0 4px 12px rgba(255,181,71,0.15);transition:all .18s ease;white-space:nowrap}
+.premium-btn-create:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(255,151,44,0.22)}
+
+/* Bikes Grid */
+.bikes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:2rem}
+
+/* Bike Card */
+.bike-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(2,82,127,0.08);transition:all .22s cubic-bezier(.4,0,.2,1)}
+.bike-card:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(2,82,127,0.14)}
+.bike-image-wrapper{width:100%;height:200px;background:#f0f4f8;overflow:hidden}
+.bike-image{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.bike-card:hover .bike-image{transform:scale(1.05)}
+.bike-image-placeholder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#e0e7ff,#f0f4f8);color:#7c8fa3;font-size:.9rem;font-weight:600}
+.bike-card-content{padding:1.25rem}
+.bike-name{margin:0 0 .35rem;font-size:1.15rem;color:var(--text-dark);font-weight:700}
+.bike-model{margin:0 0 .75rem;font-size:.85rem;color:#64748b;font-weight:500}
+.bike-price{margin:0;font-size:1.35rem;font-weight:700;color:var(--blue-700)}
+.price-unit{font-size:.75rem;font-weight:600}
+.bike-status-wrapper{margin:.75rem 0}
+.bike-status{display:inline-block;padding:.35rem .65rem;border-radius:20px;font-size:.8rem;font-weight:700;letter-spacing:.3px}
+.status-available{background:#d4edda;color:#155724}
+.status-unavailable{background:#f8d7da;color:#721c24}
+.bike-detail-link{display:inline-block;margin-top:.5rem;color:var(--blue-700);text-decoration:none;font-weight:600;font-size:.95rem;transition:all .18s ease;position:relative}
+.bike-detail-link:hover{color:var(--blue-600);transform:translateX(2px)}
+.bikes-empty{grid-column:1 / -1;text-align:center;padding:2rem;color:#7c8fa3;font-size:1.05rem}
+
+@media(max-width:1024px){.bikes-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}}
+@media(max-width:768px){.bikes-grid{grid-template-columns:repeat(2,1fr)}.bikes-toolbar{flex-direction:column;align-items:stretch}.search-bar{min-width:auto}.premium-btn-create{text-align:center}}
+@media(max-width:600px){.bikes-grid{grid-template-columns:1fr}.bikes-title{font-size:1.5rem}.search-bar{border-radius:8px;padding:.5rem}.search-btn{padding:.5rem 1rem;border-radius:6px}.bike-card-content{padding:1rem}}
+
 @media(max-width:900px){
   .hero-card h2{font-size:1.5rem}
   .site-header .main-nav a{margin-left:.6rem}
