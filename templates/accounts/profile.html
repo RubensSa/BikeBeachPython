@@ -1,8 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Perfil</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button class="btn" type="submit">Salvar</button>
-</form>
+<div class="profile-page">
+  <div class="profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar">
+        {% if user.first_name or user.last_name %}
+          {{ user.first_name|slice:":1"|upper }}{{ user.last_name|slice:":1"|upper }}
+        {% else %}
+          {{ user.username|slice:":2"|upper }}
+        {% endif %}
+      </div>
+      <div class="profile-meta">
+        <h2>{{ user.get_full_name|default:user.username }}</h2>
+        <p class="profile-subtitle">{{ user.email }}</p>
+      </div>
+    </div>
+
+    <div class="profile-info-card">
+      <h3>Informações Pessoais</h3>
+      <div class="profile-info-grid">
+        <div>
+          <span>Nome</span>
+          <strong>{{ user.get_full_name|default:user.username }}</strong>
+        </div>
+        <div>
+          <span>E-mail</span>
+          <strong>{{ user.email }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <form method="post" class="profile-form">{% csrf_token %}
+      {{ form.as_p }}
+      <button class="auth-btn" type="submit">Salvar</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

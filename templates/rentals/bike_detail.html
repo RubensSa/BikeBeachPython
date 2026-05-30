@@ -1,23 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="bike-detail">
-  {% if bike.imagem %}
-    <img class="bike-image" src="{{ bike.imagem.url }}" alt="{{ bike.nome }}">
-  {% endif %}
-  <h2>{{ bike.nome }}</h2>
-  <p>Modelo: {{ bike.modelo }}</p>
-  <p>Cor: {{ bike.cor }}</p>
-  <p>Valor/h: R$ {{ bike.valor_hora }}</p>
-  <p>Dono: {{ bike.dono.username }}</p>
-  <p>Status: {% if bike.disponivel %}Disponível{% else %}Indisponível{% endif %}</p>
-  {% if user == bike.dono %}
-    <a href="{% url 'rentals:bike_edit' bike.pk %}">Editar</a>
-    <a href="{% url 'rentals:bike_delete' bike.pk %}">Excluir</a>
-  {% endif %}
-  {% if bike.disponivel and user.is_authenticated %}
-    <form method="post" action="{% url 'rentals:rent_bike' bike.pk %}">{% csrf_token %}
-      <button class="btn" type="submit">Alugar</button>
-    </form>
-  {% endif %}
+<div class="detail-page">
+  <div class="detail-card">
+    <div class="detail-image-wrapper">
+      {% if bike.imagem %}
+        <img class="detail-image" src="{{ bike.imagem.url }}" alt="{{ bike.nome }}">
+      {% endif %}
+    </div>
+    <div class="detail-content">
+      <div class="detail-title-row">
+        <div>
+          <h2>{{ bike.nome }}</h2>
+          <p class="detail-subtitle">{{ bike.modelo }} • {{ bike.cor }}</p>
+        </div>
+        <span class="detail-status {% if bike.disponivel %}status-available{% else %}status-unavailable{% endif %}">
+          {% if bike.disponivel %}Disponível{% else %}Indisponível{% endif %}
+        </span>
+      </div>
+      <div class="detail-info-grid">
+        <div>
+          <span>Valor por hora</span>
+          <strong>R$ {{ bike.valor_hora }}</strong>
+        </div>
+        <div>
+          <span>Dono</span>
+          <strong>{{ bike.dono.username }}</strong>
+        </div>
+      </div>
+      <div class="detail-actions">
+        {% if user == bike.dono %}
+          <a class="detail-action-link" href="{% url 'rentals:bike_edit' bike.pk %}">Editar</a>
+          <a class="detail-action-link" href="{% url 'rentals:bike_delete' bike.pk %}">Excluir</a>
+        {% endif %}
+        {% if bike.disponivel and user.is_authenticated %}
+          <form method="post" action="{% url 'rentals:rent_bike' bike.pk %}" class="rent-form">{% csrf_token %}
+            <button class="rent-btn" type="submit">Alugar</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

@@ -19,8 +19,8 @@ body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica
 .site-header .main-nav a{color:rgba(255,255,255,0.95);text-decoration:none;margin-left:1rem;padding:.35rem .5rem;border-radius:6px;transition:all .18s ease}
 .site-header .main-nav a:hover{background:rgba(255,255,255,0.06);transform:translateY(-2px);box-shadow:0 6px 14px rgba(3,35,54,0.08)}
 .site-header .main-nav a:active{transform:translateY(0)}
-.site-header .logout-btn{background:var(--white);color:var(--blue-700);padding:.35rem .6rem;font-weight:600;margin-left:0.8rem}
-.site-header .logout-btn:hover{filter:brightness(.95);transform:translateY(-2px)}
+.site-header .logout-btn{background:#dc2626;color:var(--white);padding:.35rem .6rem;font-weight:600;margin-left:0.8rem;border-radius:8px}
+.site-header .logout-btn:hover{background:#b91c1c;transform:translateY(-2px)}
 
 /* Hero */
 .hero{padding:3.5rem 0; background:linear-gradient(180deg, rgba(3,104,166,0.06), rgba(2,82,127,0.03)); background-position:center; background-size:cover}
@@ -57,6 +57,59 @@ form input, form select, form textarea{width:100%;padding:.5rem;margin:.25rem 0;
 .auth-link{text-align:center;color:var(--text-dark);font-size:.95rem;margin-top:1.5rem}
 .auth-link a{color:var(--blue-700);text-decoration:none;font-weight:600;transition:color .18s ease}
 .auth-link a:hover{color:var(--blue-600)}
+
+/* Profile Page */
+.profile-page{display:flex;align-items:center;justify-content:center;padding:3rem 1rem}
+.profile-card{width:80%;max-width:760px;background:#eef2f7;border-radius:20px;padding:2rem;box-shadow:0 18px 50px rgba(15,23,42,0.08)}
+.profile-header{display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem}
+.profile-avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#0368a6,#02527f);color:#ffffff;display:grid;place-items:center;font-size:2rem;font-weight:800;letter-spacing:.08em;box-shadow:0 12px 30px rgba(3,35,54,0.18)}
+.profile-meta h2{margin:0;font-size:2rem;color:#0f172a}
+.profile-subtitle{margin:0;color:#475569;font-size:.95rem}
+.profile-info-card{background:#f1f5f9;border-radius:18px;padding:1.6rem;margin-bottom:1.8rem}
+.profile-info-card h3{margin:0 0 1rem;font-size:1.05rem;color:#0f172a}
+.profile-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}
+.profile-info-grid div span{display:block;color:#64748b;font-size:.85rem;margin-bottom:.35rem}
+.profile-info-grid div strong{display:block;color:#0f172a;font-size:1rem}
+.profile-form p{margin-bottom:1rem}
+.profile-form label{display:block;margin-bottom:.4rem;color:#334155;font-weight:600}
+.profile-form input{border-radius:20px;background:rgba(255,255,255,0.75);border:1px solid rgba(148,163,184,0.45);color:#000}
+.profile-form textarea{border-radius:20px;background:rgba(255,255,255,0.75);border:1px solid rgba(148,163,184,0.45);color:#000}
+
+/* Detail Page */
+.detail-page{display:flex;justify-content:center;padding:3rem 1rem}
+.detail-card{width:95%;max-width:980px;background:#f8f9fb;border-radius:24px;overflow:hidden;box-shadow:0 22px 60px rgba(15,23,42,0.08)}
+.detail-image-wrapper{height:360px;overflow:hidden;background:#e2e8f8}
+.detail-image{width:100%;height:100%;object-fit:cover;filter:brightness(1.05);transition:transform .35s ease}
+.detail-image-wrapper:hover .detail-image{transform:scale(1.03)}
+.detail-content{padding:2rem}
+.detail-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.5rem}
+.detail-subtitle{margin:0;color:#475569;font-size:1rem}
+.detail-status{padding:.5rem 1rem;border-radius:999px;font-size:.85rem;font-weight:700}
+.detail-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin-bottom:2rem}
+.detail-info-grid span{display:block;color:#64748b;font-size:.85rem;margin-bottom:.35rem}
+.detail-info-grid strong{color:#0f172a;font-size:1.1rem}
+.detail-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
+.detail-action-link{color:var(--blue-700);text-decoration:none;font-weight:600}
+.rent-form{margin:0}
+.rent-btn{background:linear-gradient(180deg,#ffd54f,#ffb74d);color:#0f172a;font-weight:700;border:none;border-radius:14px;padding:.95rem 1.5rem;cursor:pointer;box-shadow:0 10px 24px rgba(255,181,71,0.18);transition:transform .18s ease}
+.rent-btn:hover{transform:translateY(-2px)}
+
+/* Rentals Page */
+.rentals-page{padding:2rem 1rem 6rem}
+.section-header h2{margin:0 0 1.5rem;font-size:2rem;color:#0f172a}
+.rentals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.rental-card{background:#f1f5f9;border-radius:20px;padding:1.75rem;box-shadow:0 12px 30px rgba(15,23,42,0.07);border:1px solid rgba(148,163,184,0.26)}
+.rental-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.25rem}
+.rental-card-header h3{margin:0;font-size:1.1rem;color:#0f172a}
+.rental-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.rental-details div span{display:block;color:#64748b;font-size:.82rem;margin-bottom:.35rem}
+.rental-details div strong{color:#0f172a;font-size:1rem}
+.rental-actions{margin-top:1.5rem}
+.rent-return-btn{display:inline-block;background:#ffd54f;color:#0f172a;padding:.75rem 1.2rem;border-radius:14px;font-weight:700;text-decoration:none;box-shadow:0 8px 20px rgba(255,181,71,0.12)}
+.rent-return-btn:hover{transform:translateY(-1px)}
+.empty-state{color:#64748b}
+@media(max-width:1024px){.rentals-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.rentals-grid{grid-template-columns:1fr}}
 .card img, .bike-detail img{width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:1rem}
 
 /* Footer fixed */

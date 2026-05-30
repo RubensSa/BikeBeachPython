@@ -1,16 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Meus Aluguéis</h2>
-<ul>
-  {% for a in alugueis %}
-    <li>
-      {{ a.bicicleta.nome }} - Início: {{ a.data_inicio }} - {% if a.ativo %}Ativo{% else %}Finalizado{% endif %}
-      {% if a.ativo %}
-        <a href="{% url 'rentals:return_bike' a.pk %}">Devolver</a>
-      {% endif %}
-    </li>
-  {% empty %}
-    <li>Você não tem aluguéis.</li>
-  {% endfor %}
-</ul>
+<section class="rentals-page">
+  <div class="section-header">
+    <h2>Meus Aluguéis</h2>
+  </div>
+  <div class="rentals-grid">
+    {% for a in alugueis %}
+      <article class="rental-card">
+        <div class="rental-card-header">
+          <h3>{{ a.bicicleta.nome }}</h3>
+          <span class="detail-status {% if a.ativo %}status-available{% else %}status-unavailable{% endif %}">
+            {% if a.ativo %}Ativo{% else %}Finalizado{% endif %}
+          </span>
+        </div>
+        <div class="rental-details">
+          <div>
+            <span>Início</span>
+            <strong>{{ a.data_inicio|date:"d/m/Y H:i" }}</strong>
+          </div>
+          <div>
+            <span>Fim</span>
+            <strong>{% if a.data_fim %}{{ a.data_fim|date:"d/m/Y H:i" }}{% else %}Em andamento{% endif %}</strong>
+          </div>
+          <div>
+            <span>Valor/h</span>
+            <strong>R$ {{ a.bicicleta.valor_hora }}</strong>
+          </div>
+          <div>
+            <span>Status</span>
+            <strong>{% if a.ativo %}Ativo{% else %}Finalizado{% endif %}</strong>
+          </div>
+        </div>
+        <div class="rental-actions">
+          {% if a.ativo %}
+            <a class="rent-return-btn" href="{% url 'rentals:return_bike' a.pk %}">Devolver</a>
+          {% endif %}
+        </div>
+      </article>
+    {% empty %}
+      <p class="empty-state">Você não tem aluguéis.</p>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}
