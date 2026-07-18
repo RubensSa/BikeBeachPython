@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -5,6 +7,8 @@ from .models import Bicicleta, Aluguel
 from .forms import BicicletaForm
 from django.utils import timezone
 from django.db.models import Q
+
+logger = logging.getLogger(__name__)
 
 
 def home(request):
@@ -22,7 +26,7 @@ def bike_list(request):
 
 @login_required
 def bike_detail(request, pk):
-    bike = get_object_or_404(Bicicleta, pk=pk)
+    bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
     return render(request, 'rentals/bike_detail.html', {'bike': bike})
 
 
@@ -43,10 +47,7 @@ def bike_create(request):
 
 @login_required
 def bike_edit(request, pk):
-    bike = get_object_or_404(Bicicleta, pk=pk)
-    if bike.dono != request.user:
-        messages.error(request, 'Apenas o dono pode editar esta bicicleta.')
-        return redirect('rentals:bike_detail', pk=pk)
+    bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
     if request.method == 'POST':
         form = BicicletaForm(request.POST, request.FILES, instance=bike)
         if form.is_valid():
@@ -60,11 +61,9 @@ def bike_edit(request, pk):
 
 @login_required
 def bike_delete(request, pk):
-    bike = get_object_or_404(Bicicleta, pk=pk)
-    if bike.dono != request.user:
-        messages.error(request, 'Apenas o dono pode excluir esta bicicleta.')
-        return redirect('rentals:bike_detail', pk=pk)
+    bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
     if request.method == 'POST':
+        logger.warning('Usuário %s excluiu a bicicleta %s.', request.user, bike.pk)
         bike.delete()
         messages.success(request, 'Bicicleta excluída.')
         return redirect('rentals:bike_list')

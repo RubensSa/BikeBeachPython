@@ -4,10 +4,25 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'jkgrg-^df0t2%&(nu9c@w3h^78&zm5n3c1h&$or))_eb_m$8t&'
-DEBUG = True
-# Permitir acesso de outras máquinas em desenvolvimento. Remova ou restrinja em produção.
-ALLOWED_HOSTS = ['*']
+
+def get_env_bool(name, default=False):
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
+def get_env_list(name, default):
+    value = os.getenv(name)
+    if not value:
+        return default
+    return [item.strip() for item in value.split(',') if item.strip()]
+
+
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-development-key')
+DEBUG = get_env_bool('DEBUG', True)
+# Em produção, defina ALLOWED_HOSTS com os hosts permitidos, por exemplo: localhost,127.0.0.1,meudominio.com
+ALLOWED_HOSTS = get_env_list('ALLOWED_HOSTS', ['localhost', '127.0.0.1', 'testserver'])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,6 +44,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SESSION_COOKIE_SECURE = get_env_bool('SESSION_COOKIE_SECURE', False)
+CSRF_COOKIE_SECURE = get_env_bool('CSRF_COOKIE_SECURE', False)
+SESSION_COOKIE_HTTPONLY = True
+SECURE_SSL_REDIRECT = get_env_bool('SECURE_SSL_REDIRECT', False)
+X_FRAME_OPTIONS = 'DENY'
+# Em produção, habilite HTTPS e defina estas opções como True para reforçar a segurança do cookie e do redirecionamento.
 
 ROOT_URLCONF = 'bikebeach.urls'
 
@@ -63,6 +85,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 10,
+        },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -84,6 +109,28 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'rentals': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'accounts': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+    },
+}
 
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'rentals:home'
