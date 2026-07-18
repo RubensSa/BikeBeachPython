@@ -33,7 +33,7 @@
         </div>
         <div class="rental-actions">
           {% if a.ativo %}
-            <a class="rent-return-btn" href="{% url 'rentals:return_bike' a.pk %}">Devolver</a>
+            <a class="premium-btn btn-sm" href="{% url 'rentals:return_bike' a.pk %}">Devolver</a>
           {% endif %}
         </div>
       </article>

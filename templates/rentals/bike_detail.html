@@ -29,12 +29,12 @@
       </div>
       <div class="detail-actions">
         {% if bike.dono == request.user %}
-          <a class="btn btn-warning rounded me-2" href="{% url 'rentals:bike_edit' bike.pk %}"><i class="bi bi-pencil"></i> Editar</a>
-          <a class="btn btn-danger rounded" href="{% url 'rentals:bike_delete' bike.pk %}"><i class="bi bi-trash"></i> Excluir</a>
+          <a class="premium-btn rounded me-2" href="{% url 'rentals:bike_edit' bike.pk %}"><i class="bi bi-pencil"></i> Editar</a>
+          <a class="premium-btn rounded" href="{% url 'rentals:bike_delete' bike.pk %}"><i class="bi bi-trash"></i> Excluir</a>
         {% endif %}
         {% if bike.disponivel and user.is_authenticated %}
           <form method="post" action="{% url 'rentals:rent_bike' bike.pk %}" class="rent-form">{% csrf_token %}
-            <button class="btn btn-primary" type="submit">Alugar</button>
+            <button class="premium-btn" type="submit">Alugar</button>
           </form>
         {% endif %}
       </div>

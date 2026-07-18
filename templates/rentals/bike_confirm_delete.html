@@ -3,7 +3,7 @@
 <h2>Excluir Bicicleta</h2>
 <p>Tem certeza que deseja excluir {{ bike.nome }}?</p>
 <form method="post">{% csrf_token %}
-  <button class="btn btn-danger" type="submit">Confirmar exclusão</button>
-  <a class="btn btn-secondary ms-2" href="{% url 'rentals:bike_detail' bike.pk %}">Cancelar</a>
+  <button class="premium-btn" type="submit">Confirmar exclusão</button>
+  <a class="premium-btn ms-2" href="{% url 'rentals:bike_detail' bike.pk %}">Cancelar</a>
 </form>
 {% endblock %}
