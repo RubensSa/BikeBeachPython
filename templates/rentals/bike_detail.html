@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="detail-actions">
-        {% if user == bike.dono %}
+        {% if bike.dono == request.user %}
           <a class="detail-action-link" href="{% url 'rentals:bike_edit' bike.pk %}">Editar</a>
           <a class="detail-action-link" href="{% url 'rentals:bike_delete' bike.pk %}">Excluir</a>
         {% endif %}

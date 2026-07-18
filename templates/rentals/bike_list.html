@@ -34,6 +34,12 @@
             </span>
           </div>
           <a href="{% url 'rentals:bike_detail' bike.pk %}" class="bike-detail-link">Ver detalhes →</a>
+          {% if bike.dono == request.user %}
+            <div class="bike-owner-actions">
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'rentals:bike_edit' bike.pk %}">Editar</a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'rentals:bike_delete' bike.pk %}">Excluir</a>
+            </div>
+          {% endif %}
         </div>
       </div>
     {% empty %}

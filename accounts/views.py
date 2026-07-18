@@ -22,7 +22,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    messages.info(request, 'Você saiu da sua conta.')
+    messages.success(request, 'Logout realizado com sucesso.')
     return redirect('accounts:login')
 
 
@@ -33,7 +33,7 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Cadastro realizado. Faça login.')
+            messages.success(request, 'Cadastro realizado com sucesso. Faça login.')
             return redirect('accounts:login')
     else:
         form = RegisterForm()

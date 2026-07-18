@@ -1,6 +1,7 @@
 import logging
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Bicicleta, Aluguel
@@ -38,7 +39,7 @@ def bike_create(request):
             bike = form.save(commit=False)
             bike.dono = request.user
             bike.save()
-            messages.success(request, 'Bicicleta criada com sucesso.')
+            messages.success(request, 'Bicicleta cadastrada com sucesso.')
             return redirect('rentals:bike_list')
     else:
         form = BicicletaForm()
@@ -47,12 +48,16 @@ def bike_create(request):
 
 @login_required
 def bike_edit(request, pk):
-    bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
+    try:
+        bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
+    except Http404:
+        messages.error(request, 'Você não possui permissão para modificar esta bicicleta.')
+        return redirect('rentals:bike_list')
     if request.method == 'POST':
         form = BicicletaForm(request.POST, request.FILES, instance=bike)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Bicicleta atualizada.')
+            messages.success(request, 'Bicicleta editada com sucesso.')
             return redirect('rentals:bike_detail', pk=pk)
     else:
         form = BicicletaForm(instance=bike)
@@ -61,11 +66,15 @@ def bike_edit(request, pk):
 
 @login_required
 def bike_delete(request, pk):
-    bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
+    try:
+        bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
+    except Http404:
+        messages.error(request, 'Você não possui permissão para modificar esta bicicleta.')
+        return redirect('rentals:bike_list')
     if request.method == 'POST':
         logger.warning('Usuário %s excluiu a bicicleta %s.', request.user, bike.pk)
         bike.delete()
-        messages.success(request, 'Bicicleta excluída.')
+        messages.success(request, 'Bicicleta excluída com sucesso.')
         return redirect('rentals:bike_list')
     return render(request, 'rentals/bike_confirm_delete.html', {'bike': bike})
 
