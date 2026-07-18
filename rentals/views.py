@@ -26,7 +26,7 @@ def bike_list(request):
 
 @login_required
 def bike_detail(request, pk):
-    bike = get_object_or_404(Bicicleta, pk=pk, dono=request.user)
+    bike = get_object_or_404(Bicicleta, pk=pk)
     return render(request, 'rentals/bike_detail.html', {'bike': bike})
 
 

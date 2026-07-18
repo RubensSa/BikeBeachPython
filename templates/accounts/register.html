@@ -5,11 +5,25 @@
     <h2>Cadastrar</h2>
     <form method="post" class="auth-form">
       {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+          {% for err in form.non_field_errors %}
+            <div>{{ err }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       {% for field in form %}
         <div class="form-group">
           <label for="{{ field.id_for_label }}">{{ field.label }}</label>
           {% if field.field.widget.input_type != "hidden" %}
             {{ field }}
+          {% endif %}
+          {% if field.errors %}
+            {% for error in field.errors %}
+              <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
           {% endif %}
         </div>
       {% endfor %}
