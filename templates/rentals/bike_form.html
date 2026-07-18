@@ -2,7 +2,46 @@
 {% block content %}
 <h2>{% if create %}Criar{% else %}Editar{% endif %} Bicicleta</h2>
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
-  {{ form.as_p }}
-  <button class="btn" type="submit">Salvar</button>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label class="form-label">Nome</label>
+        {{ form.nome }}
+        {% if form.nome.errors %}
+          {% for e in form.nome.errors %}
+            <div class="invalid-feedback d-block">{{ e }}</div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Modelo</label>
+        {{ form.modelo }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Cor</label>
+        {{ form.cor }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Valor por hora</label>
+        {{ form.valor_hora }}
+      </div>
+    </div>
+    <div class="col-md-6">
+      {% if form.instance and form.instance.imagem %}
+        <div class="mb-3">
+          <label class="form-label">Imagem atual</label>
+          <div><img src="{{ form.instance.imagem.url }}" class="img-thumbnail" style="max-width:200px;"></div>
+        </div>
+      {% endif %}
+      <div class="mb-3">
+        <label class="form-label">Imagem</label>
+        {{ form.imagem }}
+      </div>
+    </div>
+  </div>
+  <div class="mt-3">
+    <button class="btn btn-primary" type="submit">Salvar</button>
+    <a class="btn btn-secondary ms-2" href="{% if create %}{% url 'rentals:bike_list' %}{% else %}{% url 'rentals:bike_detail' form.instance.pk %}{% endif %}">Cancelar</a>
+  </div>
 </form>
 {% endblock %}

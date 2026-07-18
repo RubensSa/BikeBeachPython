@@ -49,6 +49,13 @@ class RegisterForm(UserCreationForm):
             raise forms.ValidationError('As duas senhas não coincidem.')
         return password2
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Apply Bootstrap form-control class to inputs
+        for field_name, field in self.fields.items():
+            existing = field.widget.attrs.get('class', '')
+            field.widget.attrs['class'] = (existing + ' form-control').strip()
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:

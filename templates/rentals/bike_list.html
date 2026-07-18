@@ -33,11 +33,11 @@
               {% if bike.disponivel %}Disponível{% else %}Indisponível{% endif %}
             </span>
           </div>
-          <a href="{% url 'rentals:bike_detail' bike.pk %}" class="bike-detail-link">Ver detalhes →</a>
+          <a href="{% url 'rentals:bike_detail' bike.pk %}" class="btn btn-outline-primary btn-sm rounded">Ver detalhes <i class="bi bi-arrow-right ms-1"></i></a>
           {% if bike.dono == request.user %}
-            <div class="bike-owner-actions">
-              <a class="btn btn-sm btn-outline-primary" href="{% url 'rentals:bike_edit' bike.pk %}">Editar</a>
-              <a class="btn btn-sm btn-outline-danger" href="{% url 'rentals:bike_delete' bike.pk %}">Excluir</a>
+            <div class="bike-owner-actions mt-2">
+              <a class="btn btn-warning btn-sm rounded me-2" href="{% url 'rentals:bike_edit' bike.pk %}"><i class="bi bi-pencil"></i> Editar</a>
+              <a class="btn btn-danger btn-sm rounded" href="{% url 'rentals:bike_delete' bike.pk %}"><i class="bi bi-trash"></i> Excluir</a>
             </div>
           {% endif %}
         </div>

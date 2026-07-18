@@ -15,9 +15,14 @@
       {% endif %}
 
       {% for field in form %}
-        <div class="form-group">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {% if field.field.widget.input_type != "hidden" %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {% if field.name == 'password1' or field.name == 'password2' %}
+            <div class="input-group">
+              {{ field }}
+              <button class="btn btn-outline-secondary" type="button" data-password-toggle="#{{ field.id_for_label }}"><i class="bi bi-eye"></i></button>
+            </div>
+          {% else %}
             {{ field }}
           {% endif %}
           {% if field.errors %}
