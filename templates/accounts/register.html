@@ -20,7 +20,7 @@
           {% if field.name == 'password1' or field.name == 'password2' %}
             <div class="input-group">
               {{ field }}
-              <button class="btn btn-outline-secondary" type="button" data-password-toggle="#{{ field.id_for_label }}"><i class="bi bi-eye"></i></button>
+              <button class="btn btn-outline-secondary" type="button" data-password-toggle="#{{ field.id_for_label }}" aria-label="Mostrar senha"><i class="bi bi-eye"></i></button>
             </div>
           {% else %}
             {{ field }}
@@ -32,7 +32,7 @@
           {% endif %}
         </div>
       {% endfor %}
-      <button class="auth-btn" type="submit">Registrar</button>
+      <button class="btn btn-primary w-100 mt-2" type="submit">Registrar</button>
     </form>
   </div>
 </div>
